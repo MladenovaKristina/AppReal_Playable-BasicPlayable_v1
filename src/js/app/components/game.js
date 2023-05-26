@@ -8,7 +8,6 @@ import SoundsController from "./kernel/soundscontroller";
 import ConfigurableParams from "../../data/configurable_params";
 import Environment from "./components-3d/environment";
 import Player from "./components-3d/player";
-import Coins from "./components-3d/coins";
 
 export default class Game {
   constructor(scene, camera, renderer) {
@@ -88,8 +87,7 @@ export default class Game {
   }
 
   _initCoins() {
-const coins =this._coins=new Coins();
-this._scene.add(coins);
+
   }
 
   onDown(x, y) {

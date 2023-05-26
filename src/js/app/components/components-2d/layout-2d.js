@@ -7,9 +7,8 @@ import ConfigurableParams from '../../../data/configurable_params';
 import TopText from './top-text';
 import Tutorial from './tutorial';
 import ReferencePhoto from './ref-photo';
-import ProgressBar from './progress-bar';
 
-
+// works as a main class in 2D playables
 export default class Layout2D extends DisplayObject {
   constructor() {
     super();
@@ -26,7 +25,6 @@ export default class Layout2D extends DisplayObject {
   }
 
   onAdded() {
-    
     this._topText = new TopText();
     this.add(this._topText);
 
@@ -40,13 +38,6 @@ export default class Layout2D extends DisplayObject {
 
     this._createLogo();
     this._createDownloadBtn();
-    
-    this._progressBar = new ProgressBar();
-    this.add(this._progressBar);
-    this._progressBar.x = 400;
-    this._progressBar.y = 800;
-
-
 
     this.onResize();
     Black.stage.on('resize', this.onResize, this);
@@ -69,8 +60,6 @@ export default class Layout2D extends DisplayObject {
     this._tutorial.y = Black.stage.centerY + bb.height * 0.18;
 
     this._endScreen.onResize(bb);
-
-    
 
     if (this._logoGoogle) {
       this._logoGoogle.scaleX = 0.9;
