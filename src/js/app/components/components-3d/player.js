@@ -32,8 +32,7 @@ export default class Player extends THREE.Object3D {
     this._state = STATES.JUMPING;
 
     new UTween(this._view.rotation, {
-      y: this.rotation.y + Math.PI,
-      z: this.position.z + 1,
+      y: this._view.rotation.y + Math.PI,
 
 
     }, JUMP_TIME, { ease: Ease.sinusoidalOut, delay: 0.2 });
