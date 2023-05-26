@@ -21,7 +21,7 @@ export default class Loader3D {
     ];
 
     textures.push({name:"texture_leopard",asset:texture_leopard});
-
+console.log(textures);
     this._count = objects.length + textures.length;
 
     return new Promise((resolve, reject) => {
