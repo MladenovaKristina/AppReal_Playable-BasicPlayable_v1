@@ -3,7 +3,7 @@ import GLBLoader from 'three-gltf-loader';
 
 import texture_zebra from '../../../data/textures/3d/texture_zebra.jpg';
 import texture_leopard from '../../../data/textures/3d/texture_leopard.jpg';
-
+import coin from '../../../data/textures/3d/coin.png'
 export default class Loader3D {
   constructor() {
     this.textureLoader = new TextureLoader();
@@ -21,7 +21,8 @@ export default class Loader3D {
     ];
 
     textures.push({name:"texture_leopard",asset:texture_leopard});
-console.log(textures);
+    textures.push({name:"coin",asset:coin});
+
     this._count = objects.length + textures.length;
 
     return new Promise((resolve, reject) => {
