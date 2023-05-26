@@ -27,6 +27,7 @@
     "es6-promise": "^4.2.8",
     "express": "^4.17.1",
     "jszip": "^3.9.1",
+    "postcss": "^8.4.23",
     "three": "^0.118.3",
     "three-gltf-loader": "1.107.0",
     "three-ik": "^0.1.0",
