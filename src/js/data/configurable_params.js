@@ -4,6 +4,7 @@ import ref_image from '../data/textures/ref_image.jpg';
 
 import sound_bg from '../data/audio/sound_bg.mp3';
 import sound_final from '../data/audio/sound_final.mp3';
+import coin from '../data/audio/coin.mp3';
 
 export default class ConfigurableParams {
 
@@ -287,6 +288,13 @@ export default class ConfigurableParams {
         "type": "boolean",
         "value": true,
         "descrition": "Sound on finish enabled.",
+        "assetName": null
+      },
+      "coin": {
+        "label": "Coin sound enabled",
+        "type": "boolean",
+        "value": coin,
+        "descrition": "Sound on collect coin enabled.",
         "assetName": null
       }
     },

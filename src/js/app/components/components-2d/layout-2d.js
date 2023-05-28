@@ -7,6 +7,9 @@ import ConfigurableParams from '../../../data/configurable_params';
 import TopText from './top-text';
 import Tutorial from './tutorial';
 import ReferencePhoto from './ref-photo';
+import ProgressBar from './progress-bar';
+import CoinsCounter from './coins-counter';
+import ScoreAnimation from './score-animation';
 
 // works as a main class in 2D playables
 export default class Layout2D extends DisplayObject {
@@ -25,6 +28,12 @@ export default class Layout2D extends DisplayObject {
   }
 
   onAdded() {
+    this._progressBar = new ProgressBar();
+    this.add(this._progressBar);
+
+    this._coinsCounter = new CoinsCounter();
+    this.add(this._coinsCounter);
+
     this._topText = new TopText();
     this.add(this._topText);
 
@@ -34,10 +43,15 @@ export default class Layout2D extends DisplayObject {
     this._tutorial = new Tutorial();
     this.add(this._tutorial);
 
+    this._scoreAnimation = new ScoreAnimation();
+    this.add(this._scoreAnimation);
+
+
     this._createEndscreen();
 
     this._createLogo();
     this._createDownloadBtn();
+
 
     this.onResize();
     Black.stage.on('resize', this.onResize, this);
@@ -53,11 +67,20 @@ export default class Layout2D extends DisplayObject {
 
     this._refPhoto.x = bb.left + Number(ConfigurableParams.getData()["reference_photo"]["offset"]["x"]);
     this._refPhoto.y = bb.top + Number(ConfigurableParams.getData()["reference_photo"]["offset"]["y"]);
+
     if (this._topText.visible)
       this._refPhoto.y = this._topText.y + this._topText.height + Number(ConfigurableParams.getData()["reference_photo"]["offset"]["y"]);
 
     this._tutorial.x = Black.stage.centerX;
     this._tutorial.y = Black.stage.centerY + bb.height * 0.18;
+
+    this._progressBar.x = Black.stage.centerX - 150;
+    this._progressBar.y = Black.stage.centerY + bb.height * 0.32;
+
+    this._scoreAnimation.x = Black.stage.centerX;
+    this._scoreAnimation.y = Black.stage.centerY - 300;
+    this._scoreAnimation.scaleX = 2;
+    this._scoreAnimation.scaleY = 2;
 
     this._endScreen.onResize(bb);
 
@@ -135,8 +158,19 @@ export default class Layout2D extends DisplayObject {
     this._topText.visible = false;
     this._tutorial.visible = false;
     this._refPhoto.visible = false;
-
+    this._progressBar.visible = false;
+    this._coinsCounter.visible = false;
+    this._scoreAnimation.visible = false;
     this._endScreen.show();
+  }
+
+  enableScoreAnimation() {
+    this._scoreAnimation.visible = true;
+    setTimeout(() => {
+      this._scoreAnimation.visible = false;
+
+    }, 500)
+
   }
 
   _ifDownloadButtonClicked(x, y) {

@@ -1,53 +1,46 @@
 // Coins.js
 import * as THREE from "three";
 
-export default class Coins extends THREE.Object3D {
-  constructor(jumpsToStore) {
+export default class Coin extends THREE.Object3D {
+  constructor() {
     super();
-    console.log("I'm a coin");
-    this._jumpsToStore = jumpsToStore;
-    this._createCoins();
-    this.animateCoins();
+    this._createCoin();
+    this._animateCoin();
   }
 
-  _createCoins() {
-    console.log("I'm making bank");
+  _createCoin() {
 
-    const increment = 10;
-    const numCoins = this._jumpsToStore; // Number of coins based on jumps
 
-    let coinsArray = [];
+    // const increment = 10;
+    // const numCoins = this._jumpsToStore; // Number of coins based on jumps
 
-    for (let i = 0; i < numCoins; i++) {
-      const position = increment * (i + 0.5);
-      const geometry = new THREE.CylinderGeometry(0.6, 0.6, 0.4, 15);
-      const material = new THREE.MeshStandardMaterial({
-        roughness: 0.7,
-        metalness: 0,
-        map: THREE.Cache.get('coin')
-      });      const cylinder = new THREE.Mesh(geometry, material);
-      cylinder.rotation.x = Math.PI / 2;
-      cylinder.position.y = 1;
-      cylinder.position.z = -position;
-      coinsArray.push(cylinder);
-    }
+    // let coinsArray = [];
 
-    this.add(...coinsArray);
+    // for (let i = 0; i < numCoins; i++) {        
+    // const position = increment * (i + 0.5);
+    const geometry = new THREE.CylinderGeometry(0.6, 0.6, 0.4, 15);
+    const material = new THREE.MeshStandardMaterial({
+      roughness: 0.7,
+      metalness: 0,
+      map: THREE.Cache.get('coin')
+    });
+    const coin = new THREE.Mesh(geometry, material);
+    coin.rotation.x = Math.PI / 2;
+    coin.position.y = 1;
+    coin.position.z = -5;
+    coin.rotation.z = 0;
 
-    console.log("Congrats! You made", coinsArray.length, "coins");
-
-    this.coinsArray = coinsArray; // Store the coins array for animation
+    this._coin = coin;
+    this.add(coin);
   }
 
-  animateCoins() {
+  _animateCoin() {
     const clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      this.coinsArray.forEach((coin) => {
-        coin.rotation.z = elapsedTime*3;
-      });
+      this._coin.rotation.z = elapsedTime * 3;
 
       requestAnimationFrame(animate);
     };
