@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import Helpers from "../../helpers/helpers";
 import UTween from "../../../utils/utween";
 import { Ease } from "../../../utils/black-engine.module";
 

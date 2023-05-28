@@ -1,16 +1,16 @@
-import { Black, MessageDispatcher, Timer, GameObject } from "../../utils/black-engine.module";
+import { Black, MessageDispatcher } from "../../utils/black-engine.module";
 import * as THREE from 'three';
 import Model from "../../data/model";
-import Helpers from "../helpers/helpers";
 import Layout2D from "./components-2d/layout-2d";
 import CameraController from "./components-3d/camera-controller";
 import SoundsController from "./kernel/soundscontroller";
 import ConfigurableParams from "../../data/configurable_params";
 import Environment from "./components-3d/environment";
 import Player from "./components-3d/player";
-import Coins from "./components-3d/coins";
+import Coin from "./components-3d/coins";
 
 export default class Game {
+
   constructor(scene, camera, renderer) {
 
     this.messageDispatcher = new MessageDispatcher();
@@ -32,6 +32,9 @@ export default class Game {
 
     this._jumps = 0;
     this._jumpsToStore = 6;
+
+    this._score = 0;
+
 
     this._init();
 
@@ -88,10 +91,15 @@ export default class Game {
   }
 
   _initCoins() {
-    const coins = this._coins = new Coins(this._jumpsToStore);
-    this._scene.add(coins);
-  
+    this._coins = [];
+    for (let i = 0; i < this._jumpsToStore; i++) {
+      const coin = new Coin();
+      coin.position.z = -i * 10;
+      this._coins.push(coin);
+    }
+    this._scene.add(...this._coins);
   }
+
 
   onDown(x, y) {
     const downloadBtnClicked = this._layout2d.onDown(x, y);
@@ -117,6 +125,8 @@ export default class Game {
     if (jumpSucceed) {
       this._jumps++;
 
+      this._detectCollision();
+
       if (this._jumps >= this._jumpsToStore) {
         this._state = STATES.OUTRO;
 
@@ -125,6 +135,34 @@ export default class Game {
         }, 500);
       }
     }
+  }
+  _detectCollision() {
+    const playerHitbox = new THREE.Sphere(this._player.position, 1);
+
+    this._coins.forEach(coin => {
+      const coinHitbox = new THREE.Sphere(coin.position, 1)
+      const distance = playerHitbox.center.distanceTo(coinHitbox.center);
+
+      if (distance < 0.5) {
+        setTimeout(() => {
+          this._handleCollision(coin);
+        }, 600);
+
+      }
+    });
+
+    return false;
+  }
+
+  _handleCollision(coin) {
+    this._score++;
+    console.log(this._score);
+
+    if (ConfigurableParams.getData()['audio']['coin']['value'])
+      SoundsController.playWithKey('coin');
+
+    this._layout2d.enableScoreAnimation();
+    this._scene.remove(coin);
   }
 
   onMove(x, y) {

@@ -7,8 +7,11 @@ import btn_outline from '../../../data/textures/btn_outline.png';
 import btn_color from '../../../data/textures/btn_color.png';
 import btn_back from '../../../data/textures/btn_back.png';
 import lilita_one from '../../../data/fonts/lilita_one';
+import coin from "../../../data/textures/3d/coin.png";
+import emoji_happy from "../../../data/textures/emoji_happy.png";
 
 import ConfigurableParams from '../../../data/configurable_params';
+
 
 export default class AssetsLoader2D extends GameObject {
   constructor() {
@@ -28,14 +31,18 @@ export default class AssetsLoader2D extends GameObject {
     assets.enqueueImage('hint_simple', hint_simple);
     assets.enqueueImage('hint_original', hint_original);
     assets.enqueueImage('infinity_sign', infinity_sign);
-    
+
     assets.enqueueImage('btn_outline', btn_outline);
     assets.enqueueImage('btn_color', btn_color);
     assets.enqueueImage('btn_back', btn_back);
+    assets.enqueueImage('coin', coin);
+    assets.enqueueImage('emoji_happy', emoji_happy);
 
     assets.enqueueImage('logo', ConfigurableParams.getData()["logo_for_google"]["change_logo"]["value"]);
     assets.enqueueImage('endscreen_logo', ConfigurableParams.getData()["endcard"]["logo"]["value"]);
     assets.enqueueImage('ref_image', ConfigurableParams.getData()["reference_photo"]["ref_photo"]["value"]);
+
+
 
     assets.enqueueFont('lilita_one', lilita_one.url);
 

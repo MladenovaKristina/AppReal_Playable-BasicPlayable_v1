@@ -10,7 +10,7 @@ export default class Loader3D {
     this.GLBLoader = new GLBLoader();
     this._count = 0;
 
- }
+  }
 
   load() {
     const objects = [
@@ -20,8 +20,8 @@ export default class Loader3D {
       { name: 'texture_zebra', asset: texture_zebra }
     ];
 
-    textures.push({name:"texture_leopard",asset:texture_leopard});
-    textures.push({name:"coin",asset:coin});
+    textures.push({ name: "texture_leopard", asset: texture_leopard });
+    textures.push({ name: "coin", asset: coin });
 
     this._count = objects.length + textures.length;
 
@@ -38,7 +38,7 @@ export default class Loader3D {
             resolve(null);
         });
       });
-      
+
 
       textures.forEach((txt) => {
         const textureMain = this.textureLoader.load(txt.asset);
