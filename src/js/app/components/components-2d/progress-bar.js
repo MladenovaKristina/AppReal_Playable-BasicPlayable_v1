@@ -7,7 +7,6 @@ export default class ProgressBar extends DisplayObject {
         this.clickCount = 0;
         this.progressIndicator = null;
 
-        document.addEventListener('click', this.onClick.bind(this));
     }
 
     onAdded() {
