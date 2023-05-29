@@ -125,6 +125,7 @@ export default class Game {
     if (jumpSucceed) {
       this._jumps++;
 
+      this._layout2d._progressBar.onClick();
       this._detectCollision();
 
       if (this._jumps >= this._jumpsToStore) {

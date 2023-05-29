@@ -77,6 +77,9 @@ export default class Layout2D extends DisplayObject {
     this._progressBar.x = Black.stage.centerX - 150;
     this._progressBar.y = Black.stage.centerY + bb.height * 0.32;
 
+    this._coinsCounter.x = Black.stage.centerX + 250;
+    this._coinsCounter.y = Black.stage.centerY - bb.height * 0.42;
+
     this._scoreAnimation.x = Black.stage.centerX;
     this._scoreAnimation.y = Black.stage.centerY - 300;
     this._scoreAnimation.scaleX = 2;
