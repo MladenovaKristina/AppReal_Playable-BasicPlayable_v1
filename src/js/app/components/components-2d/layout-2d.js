@@ -78,7 +78,7 @@ export default class Layout2D extends DisplayObject {
     this._progressBar.y = Black.stage.centerY + bb.height * 0.32;
 
     this._coinsCounter.x = Black.stage.centerX + 250;
-    this._coinsCounter.y = Black.stage.centerY - bb.height * 0.42;
+    this._coinsCounter.y = Black.stage.centerY - bb.height * 0.38;
 
     this._scoreAnimation.x = Black.stage.centerX;
     this._scoreAnimation.y = Black.stage.centerY - 300;
@@ -169,10 +169,11 @@ export default class Layout2D extends DisplayObject {
 
   enableScoreAnimation() {
     this._scoreAnimation.visible = true;
+    this._scoreAnimation.show();
     setTimeout(() => {
       this._scoreAnimation.visible = false;
 
-    }, 500)
+    }, 600)
 
   }
 

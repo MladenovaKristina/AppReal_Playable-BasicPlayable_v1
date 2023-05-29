@@ -1,23 +1,13 @@
-// Coins.js
 import * as THREE from "three";
 
 export default class Coin extends THREE.Object3D {
   constructor() {
     super();
     this._createCoin();
-    this._animateCoin();
   }
 
   _createCoin() {
 
-
-    // const increment = 10;
-    // const numCoins = this._jumpsToStore; // Number of coins based on jumps
-
-    // let coinsArray = [];
-
-    // for (let i = 0; i < numCoins; i++) {        
-    // const position = increment * (i + 0.5);
     const geometry = new THREE.CylinderGeometry(0.6, 0.6, 0.4, 15);
     const material = new THREE.MeshStandardMaterial({
       roughness: 0.7,
@@ -34,17 +24,4 @@ export default class Coin extends THREE.Object3D {
     this.add(coin);
   }
 
-  _animateCoin() {
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
-
-      this._coin.rotation.z = elapsedTime * 3;
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-  }
 }

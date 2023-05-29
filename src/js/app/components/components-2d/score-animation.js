@@ -23,7 +23,7 @@ export default class ScoreAnimation extends DisplayObject {
 
         const emojiPulse = new Tween({
             scaleX: [1.2, 1], scaleY: [1.2, 1]
-        }, 1.4, { loop: true, ease: Ease.sinusoidalOut });
+        }, 0.8, { loop: true, ease: Ease.sinusoidalOut });
         this._emoji.add(emojiPulse);
     }
 }

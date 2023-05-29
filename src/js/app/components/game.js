@@ -8,6 +8,8 @@ import ConfigurableParams from "../../data/configurable_params";
 import Environment from "./components-3d/environment";
 import Player from "./components-3d/player";
 import Coin from "./components-3d/coins";
+import Cloud from "./components-3d/cloud";
+import { forEach } from "jszip";
 
 export default class Game {
 
@@ -44,7 +46,10 @@ export default class Game {
 
   _init() {
     this._initUI();
+    this._initCloud();
+
     this._initFog();
+
     this._initEnvironment();
     this._initPlayer();
     this._initCoins();
@@ -74,11 +79,43 @@ export default class Game {
       this.messageDispatcher.post(this.onFinishEvent);
     });
   }
+  _initCloud() {
+    let cloudArray = [];
+    for (let i = 0; i < this._jumpsToStore; i++) {
+      const cloud = new Cloud();
+
+      cloud.position.z = -i * 5;
+      cloud.position.y = Math.random() * 0.8 - 0.5;
+      cloud.position.x = Math.random() * 6 - 3;
+      cloudArray.push(cloud);
+    }
+    this._scene.add(...cloudArray);
+    this._animateCloud(cloudArray);
+  }
+
+  _animateCloud(cloudArray) {
+    cloudArray.forEach(cloud => {
+
+      const clock = new THREE.Clock();
+
+      const animate = () => {
+        const elapsedTime = clock.getElapsedTime();
+
+        cloud.position.x = elapsedTime * 0.05 * cloud.position.z;
+
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    });
+  }
 
   _initFog() {
     const rendererColor = this._renderer.threeRenderer.getClearColor();
     this._scene.fog = new THREE.Fog(rendererColor, 10, 30);
   }
+
+
 
   _initEnvironment() {
     const environment = new Environment();
@@ -157,13 +194,14 @@ export default class Game {
 
   _handleCollision(coin) {
     this._score++;
-    console.log(this._score);
 
     if (ConfigurableParams.getData()['audio']['coin']['value'])
       SoundsController.playWithKey('coin');
+    this._scene.remove(coin);
 
     this._layout2d.enableScoreAnimation();
-    this._scene.remove(coin);
+    this._layout2d._coinsCounter.scoreUpdate();
+
   }
 
   onMove(x, y) {
