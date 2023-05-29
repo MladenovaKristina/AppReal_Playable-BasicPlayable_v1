@@ -4,6 +4,7 @@ export default class Coin extends THREE.Object3D {
   constructor() {
     super();
     this._createCoin();
+    this._animateCoin();
   }
 
   _createCoin() {
@@ -24,4 +25,17 @@ export default class Coin extends THREE.Object3D {
     this.add(coin);
   }
 
+  _animateCoin() {
+    const clock = new THREE.Clock();
+
+    const animate = () => {
+      const elapsedTime = clock.getElapsedTime();
+
+      this._coin.rotation.z = elapsedTime * 2;
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+  }
 }

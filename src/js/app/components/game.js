@@ -85,8 +85,8 @@ export default class Game {
       const cloud = new Cloud();
 
       cloud.position.z = -i * 5;
-      cloud.position.y = Math.random() * 0.8 - 0.5;
-      cloud.position.x = Math.random() * 6 - 3;
+      cloud.position.y = Math.random() * 0.8 - 2;
+      cloud.position.x = Math.random() * 6 - 4;
       cloudArray.push(cloud);
     }
     this._scene.add(...cloudArray);
@@ -100,15 +100,27 @@ export default class Game {
 
       const animate = () => {
         const elapsedTime = clock.getElapsedTime();
+        let cloudXSpeed = elapsedTime * 0.05 * (cloud.position.z + 2);
 
-        cloud.position.x = elapsedTime * 0.05 * cloud.position.z;
+        if (cloud.position.x < -10 || cloud.position.x > 10) {
+          cloudXSpeed *= -1; // Reverse the animation direction
+        }
 
+        cloud.position.x = cloudXSpeed;
         requestAnimationFrame(animate);
       };
+
+
 
       animate();
     });
   }
+
+  _displaceClouds(cloudArray) {
+    console.log("I got moved to the back");
+
+  }
+
 
   _initFog() {
     const rendererColor = this._renderer.threeRenderer.getClearColor();
@@ -172,6 +184,7 @@ export default class Game {
           this._onFinish();
         }, 500);
       }
+      this._displaceClouds(this.cloudArray);
     }
   }
   _detectCollision() {
